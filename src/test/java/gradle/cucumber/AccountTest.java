@@ -14,8 +14,7 @@ public class AccountTest {
 	@Test
 	public void shouldContainDepositAmount200() {
 		Account account = new Account();
-		Integer nok = 200;
-		Money amount = new Money(nok);
+		Integer amount = 200;
 		account.deposit(amount);
 		assertEquals(account.balance(),amount );
 	}
@@ -23,10 +22,18 @@ public class AccountTest {
 	@Test
 	public void shouldContainDepositAmount1000() {
 		Account account = new Account();
-		Integer nok = 1000;
-		Money amount = new Money(nok);
+		Integer amount = 1000;	
 		account.deposit(amount);
 		assertEquals(account.balance(),amount );
+	}
+	
+	@Test
+	public void shouldContainDepositAmount500() {
+		Account account = new Account();
+		Integer amount = 1000;	
+		account.deposit(amount);
+		account.withdraw(500);
+		assertEquals(account.balance(),500 );
 	}
 
 }

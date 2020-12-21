@@ -1,8 +1,19 @@
 package gradle.cucumber;
 
 public class CashSlot {
-
+	
+	
+    Integer contents;
+    
+    public CashSlot() {
+    	
+    }
+    
 	public Integer contents() {
-		return 200;
+		return contents;
+	}
+
+	public void dispens(Integer amount) {
+		 contents = amount;	
 	}
 }

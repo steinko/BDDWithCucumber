@@ -1,16 +1,23 @@
 package gradle.cucumber;
 
-public class Account {
+public class Account{
 
-	private Money balance = new Money();
+	private Integer balance = 0;
+	
+	public Account() {}
 
-	public void deposit(Money amount) {
+	public void deposit(Integer amount) {
 		balance = amount;
 		
 	}
 
-	public Money balance() {
+	public Integer balance() {
 		return balance;
+	}
+
+	public void withdraw(Integer amount) {
+		balance = balance - amount;
+		
 	}
 
 }
