@@ -20,4 +20,10 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>FeatureFiles</name>
+			<value>file:/C:/Users/stein.PC01/Development/Tutorial/BDDWithCucumberFeature/src/test/resources</value>
+		</variable>
+	</variableList>
 </projectDescription>
