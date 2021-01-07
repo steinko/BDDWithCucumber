@@ -13,5 +13,10 @@ public class AutomaticTellerController {
 	       
 	    }
 	  
+	  @PutMapping("/deposit/{amount}")
+	  public void deposit( @PathVariable String amount) {
+	       
+	    }
+	  
 	  
 }

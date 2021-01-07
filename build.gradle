@@ -11,20 +11,34 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
     id 'jacoco'
+    id "org.sonarqube" version "3.0"
 }
 
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    jcenter() 
 }
+
+jacoco {
+    toolVersion = "0.8.6"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    dependsOn test 
+     reports {
+        xml.enabled true
+     }
+}
+
 
 test {
     useJUnitPlatform()
+     finalizedBy jacocoTestReport
 }
 
 dependencies {
      implementation 'org.springframework.boot:spring-boot-starter-web'
+     
 	 testImplementation 'org.springframework.boot:spring-boot-starter-test'
      testImplementation 'io.cucumber:cucumber-java:6.9.1'
      testImplementation 'io.cucumber:cucumber-junit:6.9.1'
@@ -32,6 +46,7 @@ dependencies {
      testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
      testImplementation 'io.rest-assured:spring-mock-mvc:4.3.1'
      testImplementation  'io.rest-assured:rest-assured-common:4.3.1'
+     
 }
 
 configurations {
@@ -51,9 +66,15 @@ task cucumber() {
     }
 }
 
-test {
-    finalizedBy jacocoTestReport // report is always generated after tests run
-}
-jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
+project.tasks["sonarqube"].dependsOn "jacocoTestReport"
+
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.host.url", "https://sonarcloud.io/"
+        property "sonar.sources", "src/main/java"
+        property "sonar.login","730e95d52b7508b871eed7bcc07299b806b9ba83"
+        property "sonar.organization" , "steinko-github"
+        
+    }
 }

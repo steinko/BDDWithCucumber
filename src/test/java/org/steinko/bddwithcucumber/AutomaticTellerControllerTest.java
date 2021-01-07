@@ -15,7 +15,7 @@ public class AutomaticTellerControllerTest {
 	}
 	
 	@Test
-	public void shouldStoreMessage() {
+	public void shouldWithdraw() {
 		
 	   AutomaticTellerController controller = new AutomaticTellerController();
    	  
@@ -24,6 +24,20 @@ public class AutomaticTellerControllerTest {
    	      .standaloneSetup(controller)
        .when()
           .put("/withdraw/1000")
+       .then()
+         .statusCode(OK.value()); 
+	}
+	
+	@Test
+	public void shouldDeposit() {
+		
+	   AutomaticTellerController controller = new AutomaticTellerController();
+   	  
+   	   
+   	   given()
+   	      .standaloneSetup(controller)
+       .when()
+          .put("/deposit/1000")
        .then()
          .statusCode(OK.value()); 
 	}

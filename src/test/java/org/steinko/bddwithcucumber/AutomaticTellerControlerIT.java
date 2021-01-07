@@ -35,13 +35,25 @@ public class AutomaticTellerControlerIT {
 	}
 	
 	@Test
-	public void shouldStoreMessage() {
+	public void shouldHaveWitdraw() {
 		
    	   
    	   given()
    	      .standaloneSetup(controller)
        .when()
           .put("http://localhost:" + localServerPort + "/withdraw/1000")
+       .then()
+         .statusCode(OK.value()); 
+	}
+	
+	@Test
+	public void shouldHaveDeposited() {
+		
+   	   
+   	   given()
+   	      .standaloneSetup(controller)
+       .when()
+          .put("http://localhost:" + localServerPort + "/deposit/1000")
        .then()
          .statusCode(OK.value()); 
 	}
