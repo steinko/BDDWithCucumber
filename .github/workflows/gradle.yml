@@ -21,6 +21,11 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Upload build jar file
+      uses: actions/upload-artifact@v2
+      with:
+        name: build jar file
+        path: ./build/libs/BDDWithCucumber.jar
     - name: Run Cucumber Test
       run: ./gradlew cucumber
     - name: Run build
@@ -38,6 +43,11 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Download a single artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: build jar file  
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
