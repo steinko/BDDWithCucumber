@@ -12,6 +12,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id "org.sonarqube" version "3.0"
+    id "com.palantir.docker" version "0.22.1"
 }
 
 repositories {
@@ -78,3 +79,13 @@ sonarqube {
         
     }
 }
+
+docker {
+    
+  name "steinko/bdd-with-cucumber:0.1"
+  files bootJar.archivePath
+  buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
+  tag 'DockerHub', "steinko/bdd-with-cucumber:0.1"
+}
+
+tasks.getByPath('docker').dependsOn('build')
