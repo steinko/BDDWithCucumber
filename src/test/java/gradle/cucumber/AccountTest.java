@@ -35,5 +35,14 @@ public class AccountTest {
 		account.withdraw(500);
 		assertEquals(account.balance(),500 );
 	}
+	
+	@Test
+	public void shouldContainBalance300() {
+		Account account = new Account();
+		Integer amount = 800;	
+		account.deposit(amount);
+		account.withdraw(500);
+		assertEquals(account.balance(),300 );
+	}
 
 }

@@ -1,18 +1,17 @@
 package org.steinko.bddwithcucumber;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.HttpStatus.CREATED;
 import org.springframework.web.context.WebApplicationContext;
+
 import org.springframework.boot.web.server.LocalServerPort;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
+import org.junit.jupiter.api.Disabled;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -24,11 +23,9 @@ public class AutomaticTellerControlerIT {
 	@Autowired
 	  private WebApplicationContext webApplicationContext;
 	
-
-	 @LocalServerPort
+	@LocalServerPort
 	 private  int localServerPort;
-	
-	
+	 
 	@Test
 	public void shouldExist() {
 		assertNotNull(controller);
@@ -37,23 +34,48 @@ public class AutomaticTellerControlerIT {
 	@Test
 	public void shouldHaveWitdraw() {
 		
-   	   
    	   given()
-   	      .standaloneSetup(controller)
+   	     .webAppContextSetup(webApplicationContext)
        .when()
           .put("http://localhost:" + localServerPort + "/withdraw/1000")
        .then()
          .statusCode(OK.value()); 
+   	   
 	}
+	
 	
 	@Test
 	public void shouldHaveDeposited() {
 		
+   	   given()
+   	      . webAppContextSetup(webApplicationContext)
+       .when()
+          .put("http://localhost:" + localServerPort + "/deposit/1000")
+       .then()
+         .statusCode(OK.value()); 
    	   
+	}
+	
+	@Disabled
+	@Test
+	public void shouldHaveDispenced() {
+		
+   	   given()
+   	     .webAppContextSetup(webApplicationContext)
+       .when()
+          .get("http://localhost:" + localServerPort + "/dispence")
+       .then()
+         .statusCode(OK.value()); 
+	}
+	
+	
+	@Test
+	public void shouldknowBalance() {
+			
    	   given()
    	      .standaloneSetup(controller)
        .when()
-          .put("http://localhost:" + localServerPort + "/deposit/1000")
+          .get("http://localhost:" + localServerPort + "/balance")
        .then()
          .statusCode(OK.value()); 
 	}

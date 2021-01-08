@@ -2,7 +2,8 @@ package gradle.cucumber;
 
 public class Teller {
 	
-	CashSlot cashSlot;
+	private CashSlot cashSlot;
+	
 	public Teller(CashSlot cashSlot) {
 		this.cashSlot = cashSlot;
 	}
